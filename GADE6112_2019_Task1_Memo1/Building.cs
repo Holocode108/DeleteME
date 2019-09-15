@@ -17,13 +17,14 @@ namespace GADE6112_2019_Task1_Memo1
       symbol = sy;
       destroyed = false;
     }
-    protected int xPos;
-    protected int yPos;
-    protected int health;
-    protected int maxHealth;
-    protected string faction;
-    protected string symbol;
-    protected bool destroyed;
+		protected int xPos;
+		protected int yPos;
+		protected int health;
+		protected int maxHealth;
+		protected string faction;
+		protected string symbol;
+		protected bool destroyed;
+		protected bool GarethNoob;
 
     public abstract void Destruction();
     public abstract override string ToString();
