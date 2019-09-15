@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace GADE6112_2019_Task1_Memo1
 {
   class FactoryBuilding :Building
   {
-    public FactoryBuilding(int x, int y, int h, string f, string sy) : base(x, y, h, f, sy)
+    public FactoryBuilding(int x, int y, int h, int f, string sy) : base(x, y, h, f, sy)
     {
 
     }
-    string meleeUnit;
-    string rangedUnit;
-    int spawnPoint;
     private int productionSpeed;
 
     public int ProductionSpeed
@@ -22,20 +20,94 @@ namespace GADE6112_2019_Task1_Memo1
       get { return productionSpeed; }
       set { productionSpeed = value; }
     }
-  
-    public void UnitSpawn()
-    {
-      MeleeUnit meleeUnit = new MeleeUnit(xPos,yPos,health, 5,0,2,"M");
-    }
+		public int XPos
+		{
+			get { return base.xPos; }
+			set { base.xPos = value; }
+		}
+		public int YPos
+		{
+			get { return base.yPos; }
+			set { base.yPos = value; }
+		}
 
-    public override void Destruction()
-    {
+		public int Health
+		{
+			get { return base.health; }
+			set { base.health = value; }
+		}
 
+		public int MaxHealth
+		{
+			get { return base.maxHealth; }
+		}
+
+		public int Faction
+		{
+			get { return base.faction; }
+		}
+
+
+		public string Symbol
+		{
+			get { return base.symbol; }
+			set { base.symbol = value; }
+		}
+
+
+		public Unit UnitSpawn()
+		{	
+			Random random = new Random();
+			double theD = random.NextDouble();
+			double rand = random.NextDouble();
+			int nextX = (rand < 0.732) ? -1 : 1;
+			int nextY = (rand > 0.23) ? -1 : 1;
+			if (theD < 0.5f)
+			{
+				return new MeleeUnit(xPos + nextX, yPos + nextY, 3, 5, 1, faction, "M");
+			}
+			else
+			{
+				return new RangedUnit(xPos + nextX, yPos + nextY, 30, 5, 1, 2, faction, "U");
+			}
+	    }
+		public override void TakeDamage(int d)
+		{
+			health -= d;
+			if (health < 0)
+			{
+				Destruction();
+			}
+		}
+		public override bool isDead()
+		{
+			return destroyed;
+		}
+		public override void Destruction()
+    {
+			destroyed = true;
     }
     public override string ToString()
     {
-      return "";
-    }
-
-  }
+			string temp = "";
+			temp += symbol + "Factory ";
+			temp += "Resource:";
+			temp += "{" + Symbol + "}";
+			temp += "(" + XPos + "," + YPos + ")";
+			temp += "Heath:" + Health + ", ";
+			temp += (isDead() ? " DEAD!" : ", ALIVE!");
+			return temp;
+		}
+		public override void Save(StreamWriter writer)
+		{
+			string temp = "";
+			temp += symbol + "Factory ";
+			temp += "Resource:";
+			temp += "{" + Symbol + "}";
+			temp += ";" + XPos + ", " + YPos + ", ";
+			temp += Health + ", ";
+			temp += faction;
+			writer.WriteLine(temp);
+		}
+	}
 }

@@ -12,7 +12,7 @@ namespace GADE6112_2019_Task1_Memo1
 {
     public partial class Form1 : Form
     {
-        GameEngine engine;
+        GameEngine engine;	
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +26,7 @@ namespace GADE6112_2019_Task1_Memo1
         private void BtnPause_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+			
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace GADE6112_2019_Task1_Memo1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            engine = new GameEngine(20, txtInfo, grpMap);
+            engine = new GameEngine(20, 10, txtInfo, grpMap);
 
         }
 
@@ -45,5 +46,24 @@ namespace GADE6112_2019_Task1_Memo1
     {
 
     }
-  }
+
+		private void SaveBttn_Click(object sender, EventArgs e)
+		{
+			timer1.Enabled = false;
+			engine.TheProperSave();
+			MessageBox.Show("Saved");
+		}
+
+		private void lblRound_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void ReadBttn_Click(object sender, EventArgs e)
+		{
+			timer1.Enabled = false;
+			engine.ReadSave();
+			MessageBox.Show("Loaded please push Start");
+		}
+	}
 }

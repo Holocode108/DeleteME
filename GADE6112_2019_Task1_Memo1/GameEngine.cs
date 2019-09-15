@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,16 +15,19 @@ namespace GADE6112_2019_Task1_Memo1
         private int round;
         Random r = new Random();
         GroupBox grpMap;
+		private bool saving = false;
 
-        public int Round
+		private int FactionZeroR = 0;
+		private int FactionOneR = 0;
+		public int Round
         {
             get { return round; }
         }
 
-        public GameEngine(int numUnits, TextBox txtInfo, GroupBox gMap)
+        public GameEngine(int numUnits, int numBuilding, TextBox txtInfo, GroupBox gMap)
         {
             grpMap = gMap;
-            map = new Map(numUnits, txtInfo);
+            map = new Map(numUnits, numBuilding, txtInfo);
             map.Generate();
             map.Display(grpMap);
 
@@ -43,7 +48,7 @@ namespace GADE6112_2019_Task1_Memo1
                     else
                     {
                         (Unit closest, int distanceTo) = mu.Closest(map.Units);
-
+						(Building bclosest, int bdistance) = mu.Closest(map.Buildings);
                         //Check In Range
                         if (distanceTo <= mu.AttackRange)
                         {
@@ -128,6 +133,7 @@ namespace GADE6112_2019_Task1_Memo1
                                 }
                                 else if (ru.YPos > closestMu.YPos) //West
                                 {
+								
                                     ru.Move(3);
                                 }
                                 else if (ru.YPos < closestMu.YPos) //East
@@ -161,6 +167,64 @@ namespace GADE6112_2019_Task1_Memo1
 
                 }
             }
+			for (int i = 0; i < map.Buildings.Count; i++)
+			{
+				Building bitch = map.Buildings[i];
+				if (bitch is ResourceBuilding)
+				{
+					ResourceBuilding bREE= (ResourceBuilding)bitch;
+					
+					switch (bREE.Faction)
+					{
+						case 0:
+							{
+								FactionZeroR += bREE.MineResource();
+							}
+							break;
+						case 1:
+							{
+								FactionOneR += bREE.MineResource();
+							}
+							break;
+
+						default: break;
+					}
+
+				}
+				else if (bitch is FactoryBuilding)
+				{ 
+					FactoryBuilding bFac = (FactoryBuilding)bitch;
+					int a = bFac.Faction;
+					switch (a)
+					{
+						case 0:
+							{
+								if (FactionZeroR >= 6)
+								{
+									map.Units.Add(bFac.UnitSpawn());
+								}
+							}
+							break;
+						case 1:
+							{
+								if (FactionOneR >= 6)
+								{
+									map.Units.Add(bFac.UnitSpawn());
+								}
+							}
+							break;
+
+						default: break;
+					}
+
+				}
+				else
+				{
+					Console.WriteLine("NANI THE FUCK YOU HERE FOR ");
+				}
+			}
+
+
             map.Display(grpMap);
             round++;
         }
@@ -195,6 +259,126 @@ namespace GADE6112_2019_Task1_Memo1
             }
             return distance;
         }
+		public void TheProperSave()
+		{
+			StreamWriter units = new StreamWriter("Local_Unit_Save.txt");
+			StreamWriter buildings = new StreamWriter("Local_Buildings_Save.txt");
+			foreach(Unit u in map.Units)
+			{
+				if (u is RangedUnit)
+				{
+					RangedUnit uu = (RangedUnit)u;
+					if (uu.IsDead)
+						continue;
+					uu.Save(units);
+				}
+				else
+				{
+					MeleeUnit uu = (MeleeUnit)u;
+					if (uu.IsDead)
+						continue;
+					uu.Save(units);
+				}
+			}
+			foreach (Building u in map.Buildings)
+			{
+				if (u is FactoryBuilding)
+				{
+					FactoryBuilding uu = (FactoryBuilding)u;
+					if (uu.isDead())
+						continue;
+					uu.Save(buildings);
+				}
+				else
+				{
+					ResourceBuilding uu = (ResourceBuilding)u;
+					if (uu.isDead())
+						continue;
+					uu.Save(buildings);
+				}
+			}
+			units.Close();
+			buildings.Close();
+		}
+		//Code given by Declan Porter
+		public void DeclanFunctionalApproachToTheSaveFunction()
+		{
+			StreamWriter writer = new StreamWriter("Local_Save.txt");
+			string Faction0 = "";
+			string Faction1 = "";
 
+			writer.WriteLine("START OF SAVE");
+			foreach (Unit u in map.Units)
+			{
+				if (u is MeleeUnit)
+				{
+					MeleeUnit uu = (MeleeUnit)u;
+					if (uu.Faction == 0)
+					{
+						Faction0 += uu.ToString() + "\n";
+					}
+					else
+					{
+						Faction1 += uu.ToString() + "\n";
+					}
+				}
+				else if (u is RangedUnit)
+				{
+					RangedUnit uu = (RangedUnit)u;
+					if (uu.Faction == 0)
+					{
+						Faction0 += uu.ToString() + "\n";
+					}
+					else
+					{
+						Faction1 += uu.ToString() + "\n";
+					}
+				}
+			}
+			writer.WriteLine("UNITS -- FACTION 0");
+			writer.WriteLine(Faction0);
+			writer.WriteLine("UNITS -- FACTION 1");
+			writer.WriteLine(Faction1);
+			Faction0 = "";
+			Faction1 = "";
+			foreach (Building u in map.Buildings)
+			{
+				if (u is ResourceBuilding)
+				{
+					ResourceBuilding uu = (ResourceBuilding)u;
+					if (uu.Faction == 0)
+					{
+						Faction0 += uu.ToString() + "\n";
+					}
+					else
+					{
+						Faction1 += uu.ToString() + "\n";
+					}
+				}
+				else if (u is FactoryBuilding)
+				{
+					FactoryBuilding uu = (FactoryBuilding)u;
+					if (uu.Faction == 0)
+					{
+						Faction0 += uu.ToString() + "\n";
+					}
+					else
+					{
+						Faction1 += uu.ToString() + "\n";
+					}
+				}
+			}
+
+			writer.WriteLine("BUILDINGS-- FACTION 0");
+			writer.WriteLine(Faction0);
+			writer.WriteLine("BUILDINGS-- FACTION 1");
+			writer.WriteLine(Faction1);
+			writer.WriteLine("END OF SAVE");
+
+		}
+		public void ReadSave()
+		{
+			map.ReadSaveFile();
+		}
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GADE6112_2019_Task1_Memo1
@@ -22,9 +23,13 @@ namespace GADE6112_2019_Task1_Memo1
 
         public abstract void Move(int dir);
         public abstract void Combat(Unit attacker);
-        public abstract bool InRange(Unit other);
+		public abstract void Combat(Building building);
+
+		public abstract bool InRange(Unit other);
         public abstract (Unit,int) Closest(List<Unit> units);
-        public abstract void Death();
+		public abstract (Building, int) Closest(List<Building> units);
+		public abstract void Death();
         public abstract override string ToString();
+		public abstract void Save(StreamWriter writer);
     }
 }

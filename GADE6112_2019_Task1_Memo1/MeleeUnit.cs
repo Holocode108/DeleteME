@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace GADE6112_2019_Task1_Memo1
 {
     public class MeleeUnit : Unit
@@ -99,8 +99,19 @@ namespace GADE6112_2019_Task1_Memo1
                 default: break;
             }
         }
+		public override void Combat(Building building)
+		{
+			if (building is ResourceBuilding)
+			{
+				((ResourceBuilding)building).TakeDamage(attack);
+			}
+			else if (building is FactoryBuilding)
+			{
+				((FactoryBuilding)building).TakeDamage(attack);
+			}
+		}
 
-        public override void Combat(Unit attacker)
+		public override void Combat(Unit attacker)
         {
             if (attacker is MeleeUnit)
             {
@@ -178,8 +189,40 @@ namespace GADE6112_2019_Task1_Memo1
             }
             return (closest,shortest);
         }
+		public override (Building, int) Closest(List<Building> buildings)
+		{
+			int shortest = 100;
+			Building closest = null;
+			//Closest Unit and Distance                    
+			foreach (Building u in buildings)
+			{
+				if (u is ResourceBuilding)
+				{
+					ResourceBuilding otherMu = (ResourceBuilding)u;
+					int distance = Math.Abs(this.XPos - otherMu.XPos)
+							   + Math.Abs(this.YPos - otherMu.YPos);
+					if (distance < shortest)
+					{
+						shortest = distance;
+						closest = otherMu;
+					}
+				}
+				else if (u is FactoryBuilding)
+				{
+					FactoryBuilding otherRu = (FactoryBuilding)u;
+					int distance = Math.Abs(this.XPos - otherRu.XPos)
+							   + Math.Abs(this.YPos - otherRu.YPos);
+					if (distance < shortest)
+					{
+						shortest = distance;
+						closest = otherRu;
+					}
+				}
 
-        public override string ToString()
+			}
+			return (closest, shortest);
+		}
+		public override string ToString()
         {
             string temp = "";
             temp += uType + "Guardsman ";
@@ -187,8 +230,20 @@ namespace GADE6112_2019_Task1_Memo1
             temp += "{" + Symbol + "}";
             temp += "(" + XPos + "," + YPos + ")";
             temp += Health + ", " + Attack + ", " + AttackRange + ", " + Speed;
-            temp += (IsDead ? " DEAD!" : " ALIVE!");
+            temp += (IsDead ? " DEAD!" : ", ALIVE!");
             return temp;
         }
-    }
+		public override void Save(StreamWriter writer)
+		{
+			string temp = "";
+			temp += uType + "Guardsman ";
+			temp += "Melee:";
+			temp += "{" + Symbol + "}";
+			temp += ";" + XPos + ", " + YPos + ", ";
+			temp +=  + Health + ", " + Attack + ", " + AttackRange + ", " + Speed;
+			temp += (IsDead ? " DEAD!" : ", ");
+			temp += faction;
+			writer.WriteLine(temp);
+		}
+	}
 }
