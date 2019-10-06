@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
   class FactoryBuilding :Building
   {
@@ -90,7 +90,7 @@ namespace GADE6112_2019_Task1_Memo1
     public override string ToString()
     {
 			string temp = "";
-			temp += symbol + "Factory ";
+			temp += symbol + "Forge ";
 			temp += "Resource:";
 			temp += "{" + Symbol + "}";
 			temp += "(" + XPos + "," + YPos + ")";
@@ -101,7 +101,7 @@ namespace GADE6112_2019_Task1_Memo1
 		public override void Save(StreamWriter writer)
 		{
 			string temp = "";
-			temp += symbol + "Factory ";
+			temp += symbol + "Forge ";
 			temp += "Resource:";
 			temp += "{" + Symbol + "}";
 			temp += ";" + XPos + ", " + YPos + ", ";

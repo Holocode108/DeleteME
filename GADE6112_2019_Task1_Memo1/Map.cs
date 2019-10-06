@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
     public class Map
     {
         List<Unit> units;
-		List<Building> building;
+		    List<Building> building;
         Random r = new Random();
         int numUnits = 0;
-		int numBuilding = 0;
+		    int numBuilding = 0;
         TextBox txtInfo;
 
         public List<Unit> Units
@@ -32,10 +32,10 @@ namespace GADE6112_2019_Task1_Memo1
 		public Map(int n, int nb, TextBox txt)
         {
             units = new List<Unit>();
-			building = new List<Building>();
+			      building = new List<Building>();
             numUnits = n;
-			numBuilding = nb;
-			txtInfo = txt;
+			      numBuilding = nb;
+			      txtInfo = txt;
         }
 
         public void Generate()
@@ -44,26 +44,14 @@ namespace GADE6112_2019_Task1_Memo1
             {
       
 			   if (r.Next(0,2) == 0)
-				{
-					building.Add(new FactoryBuilding(
-						r.Next(0, 20),
-						r.Next(0, 20),
-						3,
-						(i % 2 == 0 ? 1 : 0),
-						"F"
-						));
+				 {
+					building.Add(new FactoryBuilding(r.Next(0, 20),r.Next(0, 20),3,(i % 2 == 0 ? 1 : 0),"F"));
 
-				}
+				 }
 			   else
-				{
-					building.Add(new ResourceBuilding(
-	r.Next(0, 20),
-	r.Next(0, 20),
-	3,
-	(i % 2 == 0 ? 1 : 0),
-	"R"
-	));
-				}
+				 {
+					building.Add(new ResourceBuilding(r.Next(0, 20),r.Next(0, 20),3,(i % 2 == 0 ? 1 : 0),"R"));
+				 }
 
             }
         }
@@ -193,9 +181,7 @@ namespace GADE6112_2019_Task1_Memo1
 					}
 				}
 			}
-
 		}
-
 		public void ReadSaveFile()
 		{
 			Units.Clear();

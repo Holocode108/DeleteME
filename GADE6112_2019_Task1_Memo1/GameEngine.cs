@@ -7,7 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
     public class GameEngine
     {
@@ -48,7 +48,7 @@ namespace GADE6112_2019_Task1_Memo1
                     else
                     {
                         (Unit closest, int distanceTo) = mu.Closest(map.Units);
-						(Building bclosest, int bdistance) = mu.Closest(map.Buildings);
+						        (Building bclosest, int bdistance) = mu.Closest(map.Buildings);
                         //Check In Range
                         if (distanceTo <= mu.AttackRange)
                         {
@@ -104,12 +104,7 @@ namespace GADE6112_2019_Task1_Memo1
                 else if (map.Units[i] is RangedUnit)
                 {
                     RangedUnit ru = (RangedUnit)map.Units[i];
-                   /* if (ru.Health <= ru.MaxHealth * 0.25) // Running Away is commented out to make for a more interesting battle - and some insta-deaths
-                    {
-                        ru.Move(r.Next(0, 4));
-                    }
-                    else
-                    {*/
+                   
                         (Unit closest, int distanceTo) = ru.Closest(map.Units);
                       
                         //Check In Range

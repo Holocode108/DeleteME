@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
    public abstract class Building
   {
@@ -25,8 +25,7 @@ namespace GADE6112_2019_Task1_Memo1
 		protected int faction;
 		protected string symbol;
 		protected bool destroyed;
-		protected bool GarethNoob;
-
+	
     public abstract void Destruction();
     public abstract override string ToString();
 		public abstract bool isDead();

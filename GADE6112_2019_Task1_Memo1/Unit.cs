@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
     public abstract class Unit
     {

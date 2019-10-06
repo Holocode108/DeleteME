@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
     public partial class Form1 : Form
     {

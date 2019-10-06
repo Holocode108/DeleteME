@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE6112_2019_Task1_Memo1
+namespace GADETask2
 {
     public class RangedUnit : Unit
     {
@@ -133,7 +133,7 @@ namespace GADE6112_2019_Task1_Memo1
 
 
 		public override bool InRange(Unit other)
-        {
+    {
             int distance = 0;
             int otherX = 0;
             int otherY = 0;
@@ -157,7 +157,7 @@ namespace GADE6112_2019_Task1_Memo1
             {
                 return false;
             }
-        }
+    }
 
         public override (Unit, int) Closest(List<Unit> units)
         {
@@ -229,7 +229,7 @@ namespace GADE6112_2019_Task1_Memo1
 		public override string ToString()
         {
             string temp = "";
-            temp += uType + "Archer ";
+            temp += uType + "Space Marine ";
             temp += "Ranged: ";
             temp += "{" + Symbol + "}";
             temp += "(" + XPos + "," + YPos + ")";
@@ -240,7 +240,7 @@ namespace GADE6112_2019_Task1_Memo1
 		public override void Save(StreamWriter writer)
 		{
 			string temp = "";
-			temp += uType + "Archer ";
+			temp += uType + "Space Marine ";
 			temp += "Ranged: ";
 			temp += "{" + Symbol + "}";
 			temp += ";" + XPos + ", " + YPos + ", ";
