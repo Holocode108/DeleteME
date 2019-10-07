@@ -66,6 +66,20 @@ namespace GADETask2
       get { return base.isAttacking; }
       set { base.isAttacking = value; }
     }
+    public WizardUnit(int x, int y, int h, int s, int a, int ar, int f, string sy)
+    {
+      XPos = x;
+      YPos = y;
+      Health = h;
+      base.maxHealth = h;
+      Speed = s;
+      Attack = a;
+      AttackRange = ar;
+      base.faction = f;
+      Symbol = sy;
+      IsAttacking = false;
+      IsDead = false;
+    }
     public override void Combat(Building building)
     {
 

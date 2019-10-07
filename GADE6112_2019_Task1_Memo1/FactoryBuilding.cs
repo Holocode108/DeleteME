@@ -70,7 +70,9 @@ namespace GADETask2
 			{
 				return new RangedUnit(xPos + nextX, yPos + nextY, 30, 5, 1, 2, faction, "U");
 			}
-	    }
+      
+    }
+
 		public override void TakeDamage(int d)
 		{
 			health -= d;
