@@ -79,11 +79,12 @@ namespace GADETask2
       Symbol = sy;
       IsAttacking = false;
       IsDead = false;
-    }
+    }// combat for buildings 
     public override void Combat(Building building)
     {
 
     }
+    // movement for units 
     public override void Move(int dir)
     {
       switch (dir)
@@ -95,6 +96,7 @@ namespace GADETask2
         default: break;
       }
     }
+    // combat for attackers
     public override void Combat(Unit attacker)
     {
 
@@ -113,6 +115,7 @@ namespace GADETask2
         Death(); //DEATH !!!
       }
     }
+    // checks if units are in range
     public override bool InRange(Unit other)
     {
       int distance = 0;
@@ -139,6 +142,7 @@ namespace GADETask2
         return false;
       }
     }
+    // checks if what building is the closest 
     public override (Building, int) Closest(List<Building> buildings)
     {
       int shortest = 100;
@@ -172,6 +176,7 @@ namespace GADETask2
       }
       return (closest, shortest);
     }
+    //checks what unit is the closest 
     public override (Unit, int) Closest(List<Unit> units)
     {
       int shortest = 100;
@@ -205,6 +210,7 @@ namespace GADETask2
       }
       return (closest, shortest);
     }
+    // death
     public override void  Death()
     {
       symbol = "X";

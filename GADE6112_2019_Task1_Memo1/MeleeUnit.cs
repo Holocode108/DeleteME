@@ -111,7 +111,7 @@ namespace GADETask2
         ((FactoryBuilding)building).TakeDamage(attack);
       }
     }
-    //
+    //combat script 
     public override void Combat(Unit attacker)
     {
       if (attacker is MeleeUnit)
@@ -129,7 +129,7 @@ namespace GADETask2
         Death(); //DEATH !!!
       }
     }
-
+    // check if unit in range
     public override bool InRange(Unit other)
     {
       int distance = 0;
@@ -190,6 +190,7 @@ namespace GADETask2
       }
       return (closest, shortest);
     }
+    // checks if units are near buildings
     public override (Building, int) Closest (List<Building> buildings)
     {
       int shortest = 100;

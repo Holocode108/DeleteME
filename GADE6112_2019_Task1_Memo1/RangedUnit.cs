@@ -82,7 +82,7 @@ namespace GADETask2
             IsAttacking = false;
             IsDead = false;
         }
-
+    // death function 
         public override void Death()
         {
             symbol = "X";
@@ -100,7 +100,7 @@ namespace GADETask2
                 default: break;
             }
         }
-
+    // combat for attackers 
         public override void Combat(Unit attacker)
         {
             if (attacker is MeleeUnit)
@@ -118,7 +118,7 @@ namespace GADETask2
                 Death(); //DEATH !!!
             }
         }
-
+    // comba towards buildings 
 		public override void Combat(Building building)
 		{
 			if (building is ResourceBuilding)
@@ -131,7 +131,7 @@ namespace GADETask2
 			}
 		}
 
-
+    //checks if in range
 		public override bool InRange(Unit other)
     {
             int distance = 0;
@@ -158,7 +158,7 @@ namespace GADETask2
                 return false;
             }
     }
-
+    // checks what unit is the closest
         public override (Unit, int) Closest(List<Unit> units)
         {
             int shortest = 100;
@@ -225,7 +225,7 @@ namespace GADETask2
 			}
 			return (closest, shortest);
 		}
-
+    // method to display info 
 		public override string ToString()
         {
             string temp = "";
