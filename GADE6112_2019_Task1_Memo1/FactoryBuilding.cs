@@ -54,7 +54,7 @@ namespace GADETask2
 			set { base.symbol = value; }
 		}
 
-
+    // spawning of units
 		public Unit UnitSpawn()
 		{	
 			Random random = new Random();
@@ -72,7 +72,7 @@ namespace GADETask2
 			}
       
     }
-
+    // building taking damage
 		public override void TakeDamage(int d)
 		{
 			health -= d;
@@ -89,6 +89,7 @@ namespace GADETask2
     {
 			destroyed = true;
     }
+    // displaying building stats
     public override string ToString()
     {
 			string temp = "";
@@ -100,6 +101,7 @@ namespace GADETask2
 			temp += (isDead() ? " DEAD!" : ", ALIVE!");
 			return temp;
 		}
+    //saving method
 		public override void Save(StreamWriter writer)
 		{
 			string temp = "";

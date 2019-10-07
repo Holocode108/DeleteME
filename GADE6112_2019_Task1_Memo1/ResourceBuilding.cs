@@ -52,6 +52,7 @@ namespace GADETask2
     {
 
 		}
+    // building taking damage
 		public override void TakeDamage(int d)
 		{
 			health -= d;
@@ -70,7 +71,7 @@ namespace GADETask2
 		{
 			return destroyed;
 		}
-
+    // displaying  building info
 		public override string ToString()
     {
 			string temp = "";
@@ -82,6 +83,7 @@ namespace GADETask2
 			temp += (isDead() ? " DEAD!" : ", ALIVE!");
 			return temp;
 		}
+    // resource gaining 
 	public int MineResource()
 		{
 			resourcesGenerated += rpr;

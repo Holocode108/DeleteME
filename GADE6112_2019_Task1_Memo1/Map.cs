@@ -37,7 +37,7 @@ namespace GADETask2
       numBuilding = nb;
       txtInfo = txt;
     }
-
+    // generates units
     public void Generate()
     {
       for (int i = 0; i < numUnits; i++)
@@ -61,7 +61,7 @@ namespace GADETask2
       }
 
     }
-
+    // displays units on map
     public void Display(GroupBox groupBox)
     {
       groupBox.Controls.Clear();
@@ -152,7 +152,7 @@ namespace GADETask2
         groupBox.Controls.Add(button);
       }
     }
-
+    // shows units once they are clicked
     public void Unit_Click(object sender, EventArgs e)
     {
       int x, y;
@@ -211,6 +211,7 @@ namespace GADETask2
         }
       }
     }
+    // save function 
       public void ReadSaveFile()
       {
         Units.Clear();

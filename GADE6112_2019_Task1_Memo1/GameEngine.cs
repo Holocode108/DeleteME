@@ -33,7 +33,7 @@ namespace GADETask2
 
             round = 1; 
         }
-
+    // updates game information 
         public void Update()
         {
             for(int i = 0; i < map.Units.Count; i++)
@@ -223,7 +223,7 @@ namespace GADETask2
             map.Display(grpMap);
             round++;
         }
-
+    //attacking closest unit
         public int DistanceTo(Unit a, Unit b)
         {
             int distance = 0;
@@ -254,6 +254,7 @@ namespace GADETask2
             }
             return distance;
         }
+    // save method for units
 		public void TheProperSave()
 		{
 			StreamWriter units = new StreamWriter("Local_Unit_Save.txt");

@@ -81,13 +81,13 @@ namespace GADETask2
       IsAttacking = false;
       IsDead = false;
     }
-
+    // death 
     public override void Death()
     {
       symbol = "X";
       IsDead = true;
     }
-
+    // movement function 
     public override void Move(int dir)
     {
       switch (dir)
@@ -99,6 +99,7 @@ namespace GADETask2
         default: break;
       }
     }
+    // combat for buildings
     public override void Combat(Building building)
     {
       if (building is ResourceBuilding)
@@ -110,7 +111,7 @@ namespace GADETask2
         ((FactoryBuilding)building).TakeDamage(attack);
       }
     }
-
+    //
     public override void Combat(Unit attacker)
     {
       if (attacker is MeleeUnit)
@@ -189,7 +190,7 @@ namespace GADETask2
       }
       return (closest, shortest);
     }
-    public override (Building, int) Closest(List<Building> buildings)
+    public override (Building, int) Closest (List<Building> buildings)
     {
       int shortest = 100;
       Building closest = null;
